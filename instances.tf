@@ -6,6 +6,7 @@ module "ec2-instance" {
 
   instance_type = "t2.micro"
   subnet_id     = module.vpc.public_subnets[0]
+  vpc_security_group_ids = [module.security-group.security_group_id]
 
   associate_public_ip_address = true
 }

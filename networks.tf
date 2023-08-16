@@ -13,6 +13,8 @@ module "vpc" {
 # get all AZ's in region
 data "aws_availability_zones" "azs" {
   provider = aws
+
+  # only AZ no wavelength etc
   filter {
     name   = "zone-type"
     values = ["availability-zone"]
