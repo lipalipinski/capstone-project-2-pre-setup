@@ -10,7 +10,7 @@ variable "region" {
 
 variable "bucket_name" {
   type    = string
-  default = "terraform-backend-jlpinski-2"
+  default = "terraform-backend-jlpinski-1"
 }
 
 variable "dynamodb_name" {
