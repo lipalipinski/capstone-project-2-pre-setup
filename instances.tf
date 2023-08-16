@@ -5,14 +5,14 @@ module "jenkins-controller" {
   name = "jenkins-controller"
 
   instance_type          = "t2.micro"
-  ami                    = "ami-0261755bbcb8c4a84"
+  ami                    = "ami-053b0d53c279acc90"
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.jenkins-ctrl-sg.id]
 
   associate_public_ip_address = true
 
   user_data_replace_on_change = true
-  user_data                   = "${file("files/jenkins-controller-boot.sh")}"
+  user_data                   = file("files/jenkins-controller-boot.sh")
 }
 
 module "jenkins-worker" {
@@ -22,7 +22,7 @@ module "jenkins-worker" {
   name = "jenkins-worker"
 
   instance_type          = "t2.micro"
-  ami                    = "ami-0261755bbcb8c4a84"
+  ami                    = "ami-053b0d53c279acc90"
   subnet_id              = module.vpc.private_subnets[0]
   vpc_security_group_ids = [aws_security_group.jenkins-worker-sg.id]
 }

@@ -2,6 +2,7 @@
 
 AWS_CLI_VER="2.13.9"
 
+sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' /etc/needrestart/needrestart.conf
 apt-get update -y && apt-get upgrade -y
 
 # install AWS CLI 
