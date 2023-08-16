@@ -5,7 +5,7 @@ module "jenkins-controller" {
   name = "jenkins-controller"
 
   instance_type          = "t2.micro"
-  ami                    = "ami-08a52ddb321b32a8c"
+  ami                    = "ami-0261755bbcb8c4a84"
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.jenkins-ctrl-sg.id]
 
@@ -14,28 +14,14 @@ module "jenkins-controller" {
   user_data_replace_on_change = true
   user_data                   = <<EOF
 #!/bin/bash
-yum update -y 
-yum remove -y awscli
+
+# 
+# sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
+apt-get update -y && apt-get upgrade 
+apt-get install -y unzip glibc-source groff less
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 ./aws/install
-cat <<EOF1 > /etc/yum.repos.d/adoptium.repo
-[Adoptium]
-name=Adoptium
-baseurl=https://packages.adoptium.net/artifactory/rpm/amazonlinux/2/x86_64                                                        
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.adoptium.net/artifactory/api/gpg/key/public
-EOF1
-yum install -y temurin-17-jdk
-wget -O /etc/yum.repos.d/jenkins.repo \
-  https://pkg.jenkins.io/redhat-stable/jenkins.repo
-rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-yum upgrade -y
-yum install -y jenkins
-systemctl daemon-reload
-systemctl enable jenkins
-systemctl start jenkins
 EOF
 }
 
@@ -46,6 +32,7 @@ module "jenkins-worker" {
   name = "jenkins-worker"
 
   instance_type          = "t2.micro"
+  ami                    = "ami-0261755bbcb8c4a84"
   subnet_id              = module.vpc.private_subnets[0]
   vpc_security_group_ids = [aws_security_group.jenkins-worker-sg.id]
 }
