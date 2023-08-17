@@ -43,6 +43,3 @@ AmbientCapabilities=CAP_NET_BIND_SERVICE
 EOF
 systemctl daemon-reload
 systemctl restart jenkins
-
-# finish
-echo "ALL DONE"
