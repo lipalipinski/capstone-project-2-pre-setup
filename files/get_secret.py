@@ -6,6 +6,7 @@ Get a secret from AWS Secrets Manager and store it in ~/.ssh/
 """
 
 secret_name = sys.argv[1]
+key_dest_path = os.path.expanduser(f'~/.ssh/{secret_name}')
 
 def get_secret():
 
@@ -31,6 +32,7 @@ def get_secret():
     return get_secret_value_response['SecretString']
 
 # save to ~/.ssh/
-f = open(os.path.expanduser(f'~/.ssh/{secret_name}'), "w")
+f = open(key_dest_path, "w")
 f.write(get_secret())
 f.close()
+os.chmod(key_dest_path, int(400, base=8))
