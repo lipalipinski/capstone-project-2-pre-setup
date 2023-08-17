@@ -18,9 +18,9 @@ resource "aws_security_group" "jenkins-ctrl-sg" {
   }
 
   ingress {
-    description = "Allow 8080 from anywhere"
-    from_port   = 8080
-    to_port     = 8080
+    description = "Allow 80 from anywhere"
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
