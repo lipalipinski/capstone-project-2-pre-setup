@@ -10,10 +10,10 @@ variable "region" {
 
 variable "bucket_name" {
   type    = string
-  default = "terraform-backend-jlpinski-3"
+  default = "terraform-backend-jlpinski-5"
 }
 
 variable "dynamodb_name" {
   type    = string
-  default = "terraform-lock-jlpinski-3"
+  default = "terraform-lock-jlpinski-5"
 }
