@@ -34,6 +34,7 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
 apt-get update -y
 apt-get install -y jenkins
 
+# set jenkins port to 80
 mkdir /etc/systemd/system/jenkins.service.d/ 
 cat << EOF > /etc/systemd/system/jenkins.service.d/override.conf
 [Service]
@@ -42,3 +43,6 @@ AmbientCapabilities=CAP_NET_BIND_SERVICE
 EOF
 systemctl daemon-reload
 systemctl restart jenkins
+
+# finish
+echo "ALL DONE"
