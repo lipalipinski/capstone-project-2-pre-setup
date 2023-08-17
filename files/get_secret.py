@@ -35,4 +35,4 @@ def get_secret():
 f = open(key_dest_path, "w")
 f.write(get_secret())
 f.close()
-os.chmod(key_dest_path, int(400, base=8))
+os.chmod(key_dest_path, int('400', base=8))
