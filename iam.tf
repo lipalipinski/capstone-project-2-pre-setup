@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 resource "aws_iam_instance_profile" "jenkins-controller-profile" {
   name = "jenkins-controller-profile"
   role = aws_iam_role.jenkins-controller-role.name
