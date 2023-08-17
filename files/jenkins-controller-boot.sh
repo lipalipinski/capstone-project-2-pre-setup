@@ -2,7 +2,8 @@
 
 AWS_CLI_VER="2.13.9"
 
-sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' /etc/needrestart/needrestart.conf
+sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' \
+  /etc/needrestart/needrestart.conf
 apt-get update -y && apt-get upgrade -y
 
 apt-get install -y \
@@ -20,8 +21,12 @@ unzip awscliv2.zip
 
 # install JDK 17
 mkdir -p /etc/apt/keyrings
-wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | tee /etc/apt/keyrings/adoptium.asc
-echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
+wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | tee \
+  /etc/apt/keyrings/adoptium.asc
+echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] \
+  https://packages.adoptium.net/artifactory/deb \
+  $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee \
+  /etc/apt/sources.list.d/adoptium.list
 apt-get update -y 
 apt-get install -y temurin-17-jdk
 
