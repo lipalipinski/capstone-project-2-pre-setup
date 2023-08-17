@@ -11,8 +11,12 @@ apt-get install -y \
   glibc-source \
   groff \
   less \
+  python3-pip \
   wget \
   unzip \
+
+python3 -m pip install \
+  boto3
 
 # install AWS CLI 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-$AWS_CLI_VER.zip" -o "awscliv2.zip"
@@ -48,3 +52,6 @@ AmbientCapabilities=CAP_NET_BIND_SERVICE
 EOF
 systemctl daemon-reload
 systemctl restart jenkins
+
+# clone pre-setup repo
+git clone https://github.com/lipalipinski/capstone-project-2-pre-setup.git
