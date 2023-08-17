@@ -55,3 +55,5 @@ systemctl restart jenkins
 
 # clone pre-setup repo
 git clone https://github.com/lipalipinski/capstone-project-2-pre-setup.git
+python3 capstone-project-2-pre-setup/files/get_secret.py jenkins-worker-private-key
+cp $HOME/.ssh/jenkins-worker-private-key /home/ubuntu/.ssh/

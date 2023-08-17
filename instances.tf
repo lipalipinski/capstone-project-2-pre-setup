@@ -2,7 +2,8 @@ module "jenkins-controller" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.2.1"
 
-  name = "jenkins-controller"
+  name                 = "jenkins-controller"
+  iam_instance_profile = aws_iam_instance_profile.jenkins-controller-profile.name
 
   instance_type          = "t2.micro"
   ami                    = "ami-053b0d53c279acc90"
@@ -19,7 +20,7 @@ module "jenkins-worker" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.2.1"
 
-  name = "jenkins-worker"
+  name     = "jenkins-worker"
   key_name = module.jenkins-worker-kp.key_pair_name
 
   instance_type          = "t2.micro"
@@ -32,6 +33,6 @@ module "jenkins-worker-kp" {
   source  = "terraform-aws-modules/key-pair/aws"
   version = "2.0.2"
 
-  key_name = "jenkins-worker-kp"
+  key_name   = "jenkins-worker-kp"
   public_key = file("files/ssh/jenkins-worker-kp.pub")
 }
