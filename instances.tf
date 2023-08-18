@@ -13,7 +13,14 @@ module "jenkins-controller" {
   associate_public_ip_address = true
 
   user_data_replace_on_change = true
-  user_data                   = file("files/jenkins-controller-boot.sh")
+  user_data                   = <<EOF
+#!/bin/bash
+echo JENKINS_WORKER_PK_NAME=${var.jenkins-worker-pk-name} >> /etc/environment
+source /etc/environment 
+${file("files/jenkins-controller-boot.sh")}
+EOF
+
+  depends_on = [module.jenkins-worker-private-key]
 }
 
 module "jenkins-worker" {

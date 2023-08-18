@@ -23,6 +23,12 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-$AWS_CLI_VER.zip" -o 
 unzip awscliv2.zip
 ./aws/install
 
+# clone pre-setup repo
+git clone https://github.com/lipalipinski/capstone-project-2-pre-setup.git /root/pre-setup
+python3 /root/pre-setup/files/get_secret.py $JENKINS_WORKER_PK_NAME && \
+  cp /root/.ssh/$JENKINS_WORKER_PK_NAME /home/ubuntu/.ssh/ && \
+  chown ubuntu:ubuntu /home/ubuntu/.ssh/$JENKINS_WORKER_PK_NAME 
+
 # install JDK 17
 mkdir -p /etc/apt/keyrings
 wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | tee \
@@ -52,10 +58,3 @@ AmbientCapabilities=CAP_NET_BIND_SERVICE
 EOF
 systemctl daemon-reload
 systemctl restart jenkins
-
-# clone pre-setup repo
-git clone https://github.com/lipalipinski/capstone-project-2-pre-setup.git /root/pre-setup
-python3 /root/pre-setup/files/get_secret.py jenkins-worker-private-key && \
-  cp /root/.ssh/jenkins-worker-private-key /home/ubuntu/.ssh/ && \
-  chown ubuntu:ubuntu /home/ubuntu/.ssh/jenkins-worker-private-key 
-
