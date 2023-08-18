@@ -58,3 +58,11 @@ AmbientCapabilities=CAP_NET_BIND_SERVICE
 EOF
 systemctl daemon-reload
 systemctl restart jenkins
+
+# jenkins plugin manager
+java -jar "/root/pre-setup/files/jenkins-casc/jenkins-plugin-manager-2.12.13.jar" \
+  --war /usr/share/java/jenkins.war \
+  --plugin-download-directory "/var/lib/jenkins/plugins" \
+  --plugin-file "/root/pre-setup/files/jenkins-casc/jenkins-plugins.yaml"
+chown -R jenkins:jenkins /var/lib/jenkins/plugins/
+systemctl restart jenkins
