@@ -1,6 +1,11 @@
 #!/bin/bash
 
 AWS_CLI_VER="2.13.9"
+JENKINS_REMOTE_DIR="/home/ubuntu/jenkins"
+
+# create remote root dir for jenkins
+mkdir $JENKINS_REMOTE_DIR
+chown ubuntu:ubuntu $JENKINS_REMOTE_DIR
 
 sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' \
   /etc/needrestart/needrestart.conf

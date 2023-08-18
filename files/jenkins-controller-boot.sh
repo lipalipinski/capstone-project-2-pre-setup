@@ -67,4 +67,8 @@ java -jar "/root/pre-setup/files/jenkins-casc/jenkins-plugin-manager-2.12.13.jar
   --plugin-file "/root/pre-setup/files/jenkins-casc/jenkins-plugins.yaml"
 chown -R jenkins:jenkins /var/lib/jenkins/plugins/
 
+# jenkins casc yaml
+cp /root/pre-setup/files/jenkins-casc/jenkins-casc.yaml /var/lib/jenkins/jenkins.yaml
+chown jenkins:jenkins /var/lib/jenkins/jenkins.yaml
+
 systemctl restart jenkins
