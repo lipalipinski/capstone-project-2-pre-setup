@@ -7,4 +7,9 @@ module "jenkins-worker-private-key" {
 
   # setting to 0 enables instant delete
   recovery_window_in_days = 0
+
+  tags = {
+    "jenkins:credentials:type" = "sshUserPrivateKey"
+    "jenkins:credentials:username" = "ubuntu"
+  }
 }
