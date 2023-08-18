@@ -1,5 +1,5 @@
 jenkins:
-  nodes:
+ nodes:
   - permanent:
       labelString: "ec2-worker ec2"
       launcher:
@@ -11,6 +11,7 @@ jenkins:
             manuallyTrustedKeyVerificationStrategy:
               requireInitialManualTrust: false
       name: "ec2-worker"
+      numExecutors: 2
       remoteFS: "/home/ubuntu/jenkins"
       retentionStrategy: "always"
   numExecutors: 0
