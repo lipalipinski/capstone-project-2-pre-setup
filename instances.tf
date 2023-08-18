@@ -21,6 +21,10 @@ ${file("files/jenkins-controller-boot.sh")}
 EOF
 
   depends_on = [module.jenkins-worker-private-key]
+
+  tags = {
+    Group = "jenkins_controller"
+  }
 }
 
 module "jenkins-worker" {
@@ -34,6 +38,10 @@ module "jenkins-worker" {
   ami                    = "ami-053b0d53c279acc90"
   subnet_id              = module.vpc.private_subnets[0]
   vpc_security_group_ids = [aws_security_group.jenkins-worker-sg.id]
+
+  tags = {
+    Group = "jenkins_worker"
+  }
 }
 
 module "jenkins-worker-kp" {
