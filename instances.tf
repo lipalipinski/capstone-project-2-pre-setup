@@ -15,8 +15,14 @@ module "jenkins-controller" {
   user_data_replace_on_change = true
   user_data                   = <<EOF
 #!/bin/bash
+
 echo JENKINS_WORKER_PK_NAME=${var.jenkins-worker-pk-name} >> /etc/environment
 source /etc/environment 
+
+# add jenkins worker to /etc/hosts
+echo "${module.jenkins-worker.private_ip} jenkins-worker" >> /etc/hosts
+
+# bootstrap script
 ${file("files/jenkins-controller-boot.sh")}
 EOF
 
