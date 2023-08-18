@@ -57,7 +57,6 @@ Environment="JENKINS_PORT=80"
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 EOF
 systemctl daemon-reload
-systemctl restart jenkins
 
 # jenkins plugin manager
 java -jar "/root/pre-setup/files/jenkins-casc/jenkins-plugin-manager-2.12.13.jar" \
@@ -65,4 +64,5 @@ java -jar "/root/pre-setup/files/jenkins-casc/jenkins-plugin-manager-2.12.13.jar
   --plugin-download-directory "/var/lib/jenkins/plugins" \
   --plugin-file "/root/pre-setup/files/jenkins-casc/jenkins-plugins.yaml"
 chown -R jenkins:jenkins /var/lib/jenkins/plugins/
+
 systemctl restart jenkins
