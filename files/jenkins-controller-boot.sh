@@ -25,6 +25,8 @@ unzip awscliv2.zip
 
 # clone pre-setup repo
 git clone https://github.com/lipalipinski/capstone-project-2-pre-setup.git /root/pre-setup
+
+# get jenkins worker ssh private key
 python3 /root/pre-setup/files/get_secret.py $JENKINS_WORKER_PK_NAME && \
   cp /root/.ssh/$JENKINS_WORKER_PK_NAME /home/ubuntu/.ssh/ && \
   chown ubuntu:ubuntu /home/ubuntu/.ssh/$JENKINS_WORKER_PK_NAME 

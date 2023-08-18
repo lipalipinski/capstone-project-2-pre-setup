@@ -38,6 +38,11 @@ module "jenkins-worker" {
   ami                    = "ami-053b0d53c279acc90"
   subnet_id              = module.vpc.private_subnets[0]
   vpc_security_group_ids = [aws_security_group.jenkins-worker-sg.id]
+  user_data_replace_on_change = true
+  user_data                   = <<EOF
+#!/bin/bash
+${file("files/jenkins-worker-boot.sh")}
+EOF
 
   tags = {
     Group = "jenkins_worker"
