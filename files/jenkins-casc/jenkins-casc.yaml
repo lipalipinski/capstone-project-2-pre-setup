@@ -1,4 +1,7 @@
 jenkins:
+  crumbIssuer: 
+    standard:
+       excludeClientIPFromCrumb: false
   nodes:
   - permanent:
       labelString: "ec2-worker ec2"
