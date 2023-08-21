@@ -1,5 +1,5 @@
 jenkins:
- nodes:
+  nodes:
   - permanent:
       labelString: "ec2-worker ec2"
       launcher:

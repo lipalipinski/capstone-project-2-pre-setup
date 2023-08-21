@@ -51,10 +51,16 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
 apt-get update -y
 apt-get install -y jenkins
 
-# set jenkins port to 80
+
+# jenkins setup port and HOME
+mkdir $JENKINS_HOME
+cp -R /var/lib/jenkins/* $JENKINS_HOME/
+chown -R jenkins:jenkins $JENKINS_HOME
+sed -i "/JENKINS_HOME/c JENKINS_HOME=$JENKINS_HOME" /etc/default/jenkins
 mkdir /etc/systemd/system/jenkins.service.d/ 
 cat << EOF > /etc/systemd/system/jenkins.service.d/override.conf
 [Service]
+Environment="JENKINS_HOME=$JENKINS_HOME"
 Environment="JENKINS_PORT=80"
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 EOF
@@ -63,12 +69,12 @@ systemctl daemon-reload
 # jenkins plugin manager
 java -jar "/root/pre-setup/files/jenkins-casc/jenkins-plugin-manager-2.12.13.jar" \
   --war /usr/share/java/jenkins.war \
-  --plugin-download-directory "/var/lib/jenkins/plugins" \
+  --plugin-download-directory "$JENKINS_HOME/plugins" \
   --plugin-file "/root/pre-setup/files/jenkins-casc/jenkins-plugins.yaml"
-chown -R jenkins:jenkins /var/lib/jenkins/plugins/
+chown -R jenkins:jenkins $JENKINS_HOME/plugins/
 
 # jenkins casc yaml
-cp /root/pre-setup/files/jenkins-casc/jenkins-casc.yaml /var/lib/jenkins/jenkins.yaml
-chown jenkins:jenkins /var/lib/jenkins/jenkins.yaml
+cp /root/pre-setup/files/jenkins-casc/jenkins-casc.yaml $JENKINS_HOME/jenkins.yaml
+chown jenkins:jenkins $JENKINS_HOME/jenkins.yaml
 
 systemctl restart jenkins

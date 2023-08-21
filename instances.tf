@@ -16,8 +16,9 @@ module "jenkins-controller" {
   user_data                   = <<EOF
 #!/bin/bash
 
-echo JENKINS_WORKER_PK_NAME=${var.jenkins-worker-pk-name} >> /etc/environment
-source /etc/environment 
+echo 'export JENKINS_HOME="/home/jenkins"' >> /etc/profile.d/vars.sh
+echo 'export JENKINS_WORKER_PK_NAME=${var.jenkins-worker-pk-name}' >> /etc/profile.d/vars.sh
+source /etc/profile.d/vars.sh
 
 # add jenkins worker to /etc/hosts
 echo "${module.jenkins-worker.private_ip} jenkins-worker" >> /etc/hosts
