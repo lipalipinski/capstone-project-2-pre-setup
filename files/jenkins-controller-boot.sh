@@ -1,6 +1,7 @@
 #!/bin/bash
 
 AWS_CLI_VER="2.13.9"
+SETUP_REPO_DIR="/root/pre-setup"
 
 sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' \
   /etc/needrestart/needrestart.conf
@@ -24,10 +25,10 @@ unzip awscliv2.zip
 ./aws/install
 
 # clone pre-setup repo
-git clone https://github.com/lipalipinski/capstone-project-2-pre-setup.git /root/pre-setup
+git clone https://github.com/lipalipinski/capstone-project-2-pre-setup.git $SETUP_REPO_DIR
 
 # get jenkins worker ssh private key
-python3 /root/pre-setup/files/get_secret.py $JENKINS_WORKER_PK_NAME && \
+python3 $SETUP_REPO_DIR/files/get_secret.py $JENKINS_WORKER_PK_NAME && \
   cp /root/.ssh/$JENKINS_WORKER_PK_NAME /home/ubuntu/.ssh/ && \
   chown ubuntu:ubuntu /home/ubuntu/.ssh/$JENKINS_WORKER_PK_NAME 
 
@@ -67,14 +68,15 @@ EOF
 systemctl daemon-reload
 
 # jenkins plugin manager
-java -jar "/root/pre-setup/files/jenkins-casc/jenkins-plugin-manager-2.12.13.jar" \
+java -jar "$SETUP_REPO_DIR/files/jenkins-casc/jenkins-plugin-manager-2.12.13.jar" \
   --war /usr/share/java/jenkins.war \
   --plugin-download-directory "$JENKINS_HOME/plugins" \
-  --plugin-file "/root/pre-setup/files/jenkins-casc/jenkins-plugins.yaml"
+  --plugin-file "$SETUP_REPO_DIR/files/jenkins-casc/jenkins-plugins.yaml"
 chown -R jenkins:jenkins $JENKINS_HOME/plugins/
 
 # jenkins casc yaml
-cp /root/pre-setup/files/jenkins-casc/jenkins-casc.yaml $JENKINS_HOME/jenkins.yaml
+cp $SETUP_REPO_DIR/files/jenkins-casc/jenkins-casc.yaml $JENKINS_HOME/jenkins.yaml
 chown jenkins:jenkins $JENKINS_HOME/jenkins.yaml
 
+# restart jenkins service
 systemctl restart jenkins

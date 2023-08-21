@@ -18,6 +18,11 @@ variable "dynamodb_name" {
   default = "terraform-lock-jlpinski-7"
 }
 
+variable "jenkins-home" {
+  type = string
+  default = "/home/jenkins"
+}
+
 variable "jenkins-worker-pk-name" {
   type    = string
   default = "jenkins-worker-pk"
