@@ -4,6 +4,13 @@ terraform {
       source = "hashicorp/aws"
     }
   }
+  backend "s3" {
+    bucket            = var.tf_bucket_name
+    key               = var.tf_state_key
+    region            = var.region
+    dynamodb_endpoint = "dynamodb.us-east-1.amazonaws.com"
+    dynamodb_table    = var.tf_dynamodb_name
+  }
 }
 
 provider "aws" {
@@ -12,7 +19,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Name    = "default"
+      Name    = "jlipinski-petclinic"
       Owner   = "jlipinski"
       Project = "2023_internship_waw"
     }

@@ -8,6 +8,10 @@ module "vpc" {
   private_subnets = ["10.1.20.0/24"]
 
   enable_nat_gateway = true
+
+  tags = {
+    Name = "jlipinski-petclinic"
+  }
 }
 
 # get all AZ's in region

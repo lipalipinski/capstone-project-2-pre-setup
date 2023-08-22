@@ -5,12 +5,20 @@ module "jenkins-controller" {
   name                 = "jenkins-controller"
   iam_instance_profile = aws_iam_instance_profile.jenkins-controller-profile.name
 
-  instance_type          = "t2.micro"
+  instance_type          = "t2.medium"
   ami                    = "ami-053b0d53c279acc90"
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.jenkins-ctrl-sg.id]
 
   associate_public_ip_address = true
+
+  root_block_device = [
+    {
+      encrypted   = true
+      volume_type = "gp3"
+      volume_size = 25
+    },
+  ]
 
   user_data_replace_on_change = true
   user_data                   = <<EOF
@@ -31,6 +39,7 @@ EOF
   depends_on = [module.jenkins-worker-private-key]
 
   tags = {
+    Name  = "jenkins_controller"
     Group = "jenkins_controller"
   }
 }
@@ -42,10 +51,10 @@ module "jenkins-worker" {
   name     = "jenkins-worker"
   key_name = module.jenkins-worker-kp.key_pair_name
 
-  instance_type          = "t2.micro"
-  ami                    = "ami-053b0d53c279acc90"
-  subnet_id              = module.vpc.private_subnets[0]
-  vpc_security_group_ids = [aws_security_group.jenkins-worker-sg.id]
+  instance_type               = "t2.small"
+  ami                         = "ami-053b0d53c279acc90"
+  subnet_id                   = module.vpc.private_subnets[0]
+  vpc_security_group_ids      = [aws_security_group.jenkins-worker-sg.id]
   user_data_replace_on_change = true
   user_data                   = <<EOF
 #!/bin/bash
@@ -53,6 +62,7 @@ ${file("files/jenkins-worker-boot.sh")}
 EOF
 
   tags = {
+    Name  = "jenkins_worker_1"
     Group = "jenkins_worker"
   }
 }
@@ -63,4 +73,8 @@ module "jenkins-worker-kp" {
 
   key_name   = "jenkins-worker-kp"
   public_key = file("files/ssh/jenkins-worker-kp.pub")
+
+  tags = {
+    Name = "jenkins-worker-kp"
+  }
 }

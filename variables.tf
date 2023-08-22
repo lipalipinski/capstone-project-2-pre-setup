@@ -5,21 +5,26 @@ variable "profile" {
 
 variable "region" {
   type    = string
-  default = "us-east-1"
+  default = "eu-central-1"
 }
 
-variable "bucket_name" {
+variable "tf_bucket_name" {
   type    = string
-  default = "terraform-backend-jlpinski-7"
+  default = "tf-backend-jlpinski-1"
 }
 
-variable "dynamodb_name" {
+variable "tf_state_key" {
   type    = string
-  default = "terraform-lock-jlpinski-7"
+  default = "tf/gdu-tf-assesment/terraform.tfstate"
+}
+
+variable "tf_dynamodb_name" {
+  type    = string
+  default = "tf-lock-jlpinski-1"
 }
 
 variable "jenkins-home" {
-  type = string
+  type    = string
   default = "/home/jenkins"
 }
 
