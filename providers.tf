@@ -5,11 +5,11 @@ terraform {
     }
   }
   backend "s3" {
-    bucket            = var.tf_bucket_name
-    key               = var.tf_state_key
-    region            = var.region
+    bucket            = "tf-backend-jlipinski-1"
+    key               = "tf/gdu-tf-assesment/terraform.tfstate"
+    region            = "eu-central-1"
     dynamodb_endpoint = "dynamodb.us-east-1.amazonaws.com"
-    dynamodb_table    = var.tf_dynamodb_name
+    dynamodb_table    = "tf-lock-jlipinski-1"
   }
 }
 
