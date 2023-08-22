@@ -14,8 +14,10 @@ apt-get update -y && apt-get upgrade -y
 apt-get install -y \
   apt-transport-https \
   glibc-source \
+  gnupg \
   groff \
   less \
+  software-properties-common \
   wget \
   unzip \
 
@@ -34,3 +36,12 @@ echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] \
   /etc/apt/sources.list.d/adoptium.list
 apt-get update -y 
 apt-get install -y temurin-17-jdk
+
+# install terraform
+wget -O- https://apt.releases.hashicorp.com/gpg | \
+gpg --dearmor | \
+sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+tee /etc/apt/sources.list.d/hashicorp.list
+apt-get install -y terraform
