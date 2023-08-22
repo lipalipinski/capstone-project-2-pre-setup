@@ -5,11 +5,12 @@ module "jenkins-controller" {
   name                 = "jenkins-controller"
   iam_instance_profile = aws_iam_instance_profile.jenkins-controller-profile.name
 
-  instance_type          = "t3.medium"
-  ami                    = "ami-04e601abe3e1a910f"
-  subnet_id              = module.vpc.public_subnets[0]
-  vpc_security_group_ids = [aws_security_group.jenkins-ctrl-sg.id]
+  instance_type = "t3.medium"
+  ami           = var.jenkins-ami
+  monitoring    = true
 
+  subnet_id                   = module.vpc.public_subnets[0]
+  vpc_security_group_ids      = [aws_security_group.jenkins-ctrl-sg.id]
   associate_public_ip_address = true
 
   root_block_device = [
@@ -51,10 +52,12 @@ module "jenkins-worker" {
   name     = "jenkins-worker"
   key_name = module.jenkins-worker-kp.key_pair_name
 
-  instance_type               = "t3.medium"
-  ami                         = "ami-04e601abe3e1a910f"
-  subnet_id                   = module.vpc.private_subnets[0]
-  vpc_security_group_ids      = [aws_security_group.jenkins-worker-sg.id]
+  instance_type = "t3.medium"
+  ami           = var.jenkins-ami
+  monitoring    = true
+
+  subnet_id              = module.vpc.private_subnets[0]
+  vpc_security_group_ids = [aws_security_group.jenkins-worker-sg.id]
 
   root_block_device = [
     {

@@ -25,7 +25,7 @@ resource "aws_iam_role" "jenkins-controller-role" {
   })
 
   # set to meet GD policy
-  permissions_boundary = "arn:aws:iam::113304117666:policy/DefaultBoundaryPolicy"
+  permissions_boundary = var.gd-boundry-policy
 
   tags = {
     Name = "jenkins-controller-role"
