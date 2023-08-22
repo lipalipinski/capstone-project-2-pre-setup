@@ -6,7 +6,7 @@ module "jenkins-controller" {
   iam_instance_profile = aws_iam_instance_profile.jenkins-controller-profile.name
 
   instance_type          = "t3.medium"
-  ami                    = "ami-053b0d53c279acc90"
+  ami                    = "ami-04e601abe3e1a910f"
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.jenkins-ctrl-sg.id]
 
@@ -52,7 +52,7 @@ module "jenkins-worker" {
   key_name = module.jenkins-worker-kp.key_pair_name
 
   instance_type               = "t3.medium"
-  ami                         = "ami-053b0d53c279acc90"
+  ami                         = "ami-04e601abe3e1a910f"
   subnet_id                   = module.vpc.private_subnets[0]
   vpc_security_group_ids      = [aws_security_group.jenkins-worker-sg.id]
 
@@ -63,6 +63,7 @@ module "jenkins-worker" {
       volume_size = 25
     },
   ]
+
   user_data_replace_on_change = true
   user_data                   = <<EOF
 #!/bin/bash

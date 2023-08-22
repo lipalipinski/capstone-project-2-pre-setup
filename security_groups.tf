@@ -32,10 +32,6 @@ resource "aws_security_group" "jenkins-ctrl-sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  tags = {
-    Name = "jenkins-controller-sg"
-  }
 }
 
 resource "aws_security_group" "jenkins-worker-sg" {
@@ -57,8 +53,5 @@ resource "aws_security_group" "jenkins-worker-sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-  }
-  tags = {
-    Name = "jenkins-worker-sg"
   }
 }

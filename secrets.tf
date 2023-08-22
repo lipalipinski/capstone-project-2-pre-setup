@@ -9,6 +9,7 @@ module "jenkins-worker-private-key" {
   recovery_window_in_days = 0
 
   tags = {
+    Name = "jenkins-worker-private-key"
     "jenkins:credentials:type"     = "sshUserPrivateKey"
     "jenkins:credentials:username" = "ubuntu"
   }
