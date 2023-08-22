@@ -52,7 +52,6 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
 apt-get update -y
 apt-get install -y jenkins
 
-
 # jenkins setup port and HOME
 mkdir $JENKINS_HOME
 cp -R /var/lib/jenkins/* $JENKINS_HOME/
@@ -67,18 +66,5 @@ AmbientCapabilities=CAP_NET_BIND_SERVICE
 EOF
 systemctl daemon-reload
 
-# jenkins plugin manager
-# java -jar "$SETUP_REPO_DIR/files/jenkins-casc/jenkins-plugin-manager-2.12.13.jar" \
-#   --war /usr/share/java/jenkins.war \
-#   --plugin-download-directory "$JENKINS_HOME/plugins" \
-#   --plugin-file "$SETUP_REPO_DIR/files/jenkins-casc/jenkins-plugins.yaml"
-# chown -R jenkins:jenkins $JENKINS_HOME/plugins/
-
-# jenkins casc yaml
-# cp $SETUP_REPO_DIR/files/jenkins-casc/jenkins-casc.yaml $JENKINS_HOME/jenkins.yaml
-# chown jenkins:jenkins $JENKINS_HOME/jenkins.yaml
-
-# restart jenkins service
-# systemctl restart jenkins
-
+# install jenkins plugins and run jenkins casc
 $SETUP_REPO_DIR/files/jenkins-casc/jenkins-setup.sh
