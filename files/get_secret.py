@@ -1,12 +1,12 @@
-import boto3, os, sys
+import boto3, os, requests, sys
 from botocore.exceptions import ClientError
 
 """
 Get a secret from AWS Secrets Manager and store it in ~/.ssh/
 """
 
-my_session = boto3.session.Session()
-region_name = my_session.region_name
+instance_data = requests.get("http://169.254.169.254/latest/dynamic/instance-identity/document").json()
+region_name = instance_data["region"]
 secret_name = sys.argv[1]
 key_dest_path = os.path.expanduser(f'~/.ssh/{secret_name}')
 
