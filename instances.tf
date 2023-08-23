@@ -50,6 +50,7 @@ module "jenkins-worker" {
   version = "5.2.1"
 
   name     = "jenkins-worker"
+  iam_instance_profile = aws_iam_instance_profile.jenkins-worker-profile.name
   key_name = module.jenkins-worker-kp.key_pair_name
 
   instance_type = "t3.medium"
