@@ -81,6 +81,11 @@ resource "aws_iam_role_policy_attachment" "jenkins-worker-tf-backend" {
   policy_arn = aws_iam_policy.tf_backend_access.arn
 }
 
+resource "aws_iam_role_policy_attachment" "jenkins-worker-vpc-full" {
+  role       = aws_iam_role.jenkins-worker.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonVPCFullAccess"
+}
+
 # ====== policies ======
 
 resource "aws_iam_policy" "jenkins_secrets_manager" {
