@@ -1,6 +1,7 @@
 #!/bin/bash
 
 AWS_CLI_VER="2.13.9"
+JENKINS_VER="=2.414.*"
 SETUP_REPO_DIR="/root/pre-setup"
 
 sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' \
@@ -13,8 +14,8 @@ apt-get install -y \
   groff \
   less \
   python3-pip \
-  wget \
   unzip \
+  wget 
 
 python3 -m pip install \
   boto3
@@ -50,7 +51,7 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   https://pkg.jenkins.io/debian-stable binary/ | tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
 apt-get update -y
-apt-get install -y jenkins
+apt-get install -y jenkins$JENKINS_VER
 
 # jenkins setup port and HOME
 mkdir $JENKINS_HOME
