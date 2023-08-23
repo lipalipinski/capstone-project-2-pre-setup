@@ -5,12 +5,12 @@ from botocore.exceptions import ClientError
 Get a secret from AWS Secrets Manager and store it in ~/.ssh/
 """
 
+my_session = boto3.session.Session()
+region_name = my_session.region_name
 secret_name = sys.argv[1]
 key_dest_path = os.path.expanduser(f'~/.ssh/{secret_name}')
-region_name = "eu-central-1"
 
 def get_secret():
-
 
     # Create a Secrets Manager client
     session = boto3.session.Session()
