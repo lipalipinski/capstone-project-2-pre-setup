@@ -1,16 +1,16 @@
 # ====== jenkins controller ======
 
-resource "aws_iam_instance_profile" "jenkins-controller-profile" {
-  name = "jenkins-controller-profile"
-  role = aws_iam_role.jenkins-controller-role.name
+resource "aws_iam_instance_profile" "jenkins-controller" {
+  name = "jenkins-controller"
+  role = aws_iam_role.jenkins-controller.name
 
   tags = {
-    Name = "jenkins-controller-profile"
+    Name = "jenkins-controller"
   }
 }
 
-resource "aws_iam_role" "jenkins-controller-role" {
-  name = "jenkins-controller-role"
+resource "aws_iam_role" "jenkins-controller" {
+  name = "jenkins-controller"
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -28,33 +28,33 @@ resource "aws_iam_role" "jenkins-controller-role" {
   permissions_boundary = var.gd-boundry-policy
 
   tags = {
-    Name = "jenkins-controller-role"
+    Name = "jenkins-controller"
   }
 }
 
 resource "aws_iam_role_policy_attachment" "jenkins-ctrl" {
-  role       = aws_iam_role.jenkins-controller-role.name
+  role       = aws_iam_role.jenkins-controller.name
   policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
 }
 
 resource "aws_iam_role_policy_attachment" "jenkins-secrets-policy-attach" {
-  role       = aws_iam_role.jenkins-controller-role.name
+  role       = aws_iam_role.jenkins-controller.name
   policy_arn = aws_iam_policy.jenkins_secrets_manager.arn
 }
 
 # ====== jenkins worker ======
 
-resource "aws_iam_instance_profile" "jenkins-worker-profile" {
-  name = "jenkins-worker-profile"
-  role = aws_iam_role.jenkins-worker-role.name
+resource "aws_iam_instance_profile" "jenkins-worker" {
+  name = "jenkins-worker"
+  role = aws_iam_role.jenkins-worker.name
 
   tags = {
-    Name = "jenkins-worker-profile"
+    Name = "jenkins-worker"
   }
 }
 
-resource "aws_iam_role" "jenkins-worker-role" {
-  name = "jenkins-worker-role"
+resource "aws_iam_role" "jenkins-worker" {
+  name = "jenkins-worker"
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -72,12 +72,12 @@ resource "aws_iam_role" "jenkins-worker-role" {
   permissions_boundary = var.gd-boundry-policy
 
   tags = {
-    Name = "jenkins-worker-role"
+    Name = "jenkins-worker"
   }
 }
 
 resource "aws_iam_role_policy_attachment" "jenkins-worker-tf-backend" {
-  role       = aws_iam_role.jenkins-worker-role.name
+  role       = aws_iam_role.jenkins-worker.name
   policy_arn = aws_iam_policy.tf_backend_access.arn
 }
 

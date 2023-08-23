@@ -20,3 +20,4 @@ chown jenkins:jenkins $JENKINS_HOME/jenkins.yaml
 # restart jenkins service
 printf "\nRestart jenkins.service...\n"
 systemctl restart jenkins
+printf "Done!\n"
