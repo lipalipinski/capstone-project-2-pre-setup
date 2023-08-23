@@ -5,7 +5,7 @@
 MYDIR="$(dirname "$(readlink -f "$0")")"
 
 # jenkins plugin manager
-echo "\nInstalling plugins..."
+echo "\n Installing plugins..."
 java -jar "$MYDIR/jenkins-plugin-manager-2.12.13.jar" \
   --war /usr/share/java/jenkins.war \
   --plugin-download-directory "$JENKINS_HOME/plugins" \
@@ -13,10 +13,10 @@ java -jar "$MYDIR/jenkins-plugin-manager-2.12.13.jar" \
 chown -R jenkins:jenkins $JENKINS_HOME/plugins/
 
 # jenkins casc yaml
-echo "\nCopy jenkins.yaml CASC"
+echo "\n Copy jenkins.yaml CASC"
 cp $MYDIR/jenkins-casc.yaml $JENKINS_HOME/jenkins.yaml
 chown jenkins:jenkins $JENKINS_HOME/jenkins.yaml
 
 # restart jenkins service
-echo "\nRestart jenkins.service"
+echo "\n Restart jenkins.service"
 systemctl restart jenkins
