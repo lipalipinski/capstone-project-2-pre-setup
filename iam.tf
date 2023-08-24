@@ -81,6 +81,16 @@ resource "aws_iam_role_policy_attachment" "jenkins-worker-tf-backend" {
   policy_arn = aws_iam_policy.tf_backend_access.arn
 }
 
+resource "aws_iam_role_policy_attachment" "jenkins-worker-ec2-full" {
+  role       = aws_iam_role.jenkins-worker.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "jenkins-worker-ssm-read" {
+  role       = aws_iam_role.jenkins-worker.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+}
+
 resource "aws_iam_role_policy_attachment" "jenkins-worker-vpc-full" {
   role       = aws_iam_role.jenkins-worker.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonVPCFullAccess"

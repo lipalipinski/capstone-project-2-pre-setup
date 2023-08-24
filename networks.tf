@@ -9,8 +9,18 @@ module "vpc" {
 
   enable_nat_gateway = true
 
+  private_subnet_suffix = "private"
+  private_subnet_tags = {
+    Tier = "private"
+  }
+
+  public_subnet_suffix = "public"
+  public_subnet_tags = {
+    Tier = "public"
+  }
+
   tags = {
-    Name = "jlipinski-petclinic"
+    # Name = "jlipinski-petclinic"
   }
 }
 
