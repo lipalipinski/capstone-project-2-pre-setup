@@ -77,3 +77,32 @@ jobs:
           }
         }
       }
+  - script: >
+      pipelineJob('Petclinic-Provision-Plan') {
+        description('Configured in JCasC with JobDSL')
+        definition {
+          cpsScm {
+            lightweight(false)
+            scm {
+              gitSCM{
+                userRemoteConfigs{
+                  userRemoteConfig{
+                    name("") //Custom Repository Name or ID
+                    url("https://github.com/lipalipinski/capstone-project-2-ci-cd.git") //URL for the repository
+                    refspec("") // Branch spec
+                    credentialsId("") // Credential ID. Leave blank if not required
+                  }
+                }
+                branches{
+                  branchSpec{
+                    name("refs/heads/main")
+                  }
+                }
+                browser{} // Leave blank for default Git Browser
+                gitTool("") //Leave blank for default git executable
+              }
+            }
+            scriptPath("Jenkinsfile-Plan")
+          }
+        }
+      }
