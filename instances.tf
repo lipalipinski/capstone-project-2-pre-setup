@@ -100,3 +100,15 @@ module "jenkins-worker-kp" {
     Name = "jenkins-worker-kp"
   }
 }
+
+module "app-server-kp" {
+  source  = "terraform-aws-modules/key-pair/aws"
+  version = "2.0.2"
+
+  key_name   = "app-server-kp"
+  public_key = file("files/ssh/app-server-kp.pub")
+
+  tags = {
+    Name = "app-server-kp"
+  }
+}
