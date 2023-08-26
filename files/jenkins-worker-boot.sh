@@ -73,3 +73,6 @@ sudo apt-get install -y \
   containerd.io \
   docker-buildx-plugin \
   docker-compose-plugin
+
+  groupadd docker
+  usermod -aG docker ubuntu
