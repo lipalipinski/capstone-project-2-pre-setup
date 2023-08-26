@@ -10,25 +10,25 @@ variable "region" {
 
 variable "tf_backend_s3" {
   # !!! var can't be used in backend configuration, remember to change manually
-  type = string
+  type    = string
   default = "tf-backend-jlipinski-1"
 }
 
 variable "tf_backend_s3_path" {
   # !!! var can't be used in backend configuration, remember to change manually
-  type = string
+  type    = string
   default = "tf/gdu-tf-assesment/terraform.tfstate"
 }
 
 variable "tf_app_backend_s3_path" {
   # !!! var can't be used in backend configuration, remember to change manually
-  type = string
+  type    = string
   default = "tf/petclinic-app"
 }
 
 variable "tf_backend_dynamodb_table" {
   # !!! var can't be used in backend configuration, remember to change manually
-  type = string
+  type    = string
   default = "tf-lock-jlipinski-1"
 }
 

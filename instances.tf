@@ -9,8 +9,8 @@ module "jenkins-controller" {
   ami           = var.jenkins-ami
   monitoring    = true
 
-  subnet_id                   = module.vpc.public_subnets[0]
-  vpc_security_group_ids      = [aws_security_group.jenkins-ctrl-sg.id]
+  subnet_id              = module.vpc.public_subnets[0]
+  vpc_security_group_ids = [aws_security_group.jenkins-ctrl-sg.id]
   # associate_public_ip_address = true
 
   root_block_device = [
@@ -47,7 +47,7 @@ EOF
 
 resource "aws_eip" "jenkins-controller" {
   instance = module.jenkins-controller.id
-  domain = "vpc"
+  domain   = "vpc"
 
   tags = {
     Name = "jenkins-controller-eip"
@@ -58,9 +58,9 @@ module "jenkins-worker" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.2.1"
 
-  name     = "jenkins-worker"
+  name                 = "jenkins-worker"
   iam_instance_profile = aws_iam_instance_profile.jenkins-worker.name
-  key_name = module.jenkins-worker-kp.key_pair_name
+  key_name             = module.jenkins-worker-kp.key_pair_name
 
   instance_type = "t3.medium"
   ami           = var.jenkins-ami
