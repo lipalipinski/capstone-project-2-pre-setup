@@ -12,7 +12,7 @@ plugins:
   # Apache HttpComponents Client 4.x API Plugin
   - artifactId: apache-httpcomponents-client-4-api
     source:
-      version: 4.5.14-150.v7a_b_9d17134a_5
+      version: 4.5.14-208.v438351942757
 
   # Amazon Web Services SDK :: All
   - artifactId: aws-java-sdk
@@ -97,12 +97,12 @@ plugins:
   # AWS Secrets Manager Credentials Provider
   - artifactId: aws-secrets-manager-credentials-provider
     source:
-      version: 1.202.ve0ec0c17611c
+      version: 1.213.vca_3f37306fed
 
   # AWS Secrets Manager SecretSource
   - artifactId: aws-secrets-manager-secret-source
     source:
-      version: 1.62.v120c8e5058ee
+      version: 1.72.v61781b_35c542
 
   # Bootstrap 5 API Plugin
   - artifactId: bootstrap5-api
@@ -172,7 +172,7 @@ plugins:
   # Durable Task Plugin
   - artifactId: durable-task
     source:
-      version: 513.vc48a_a_075a_d93
+      version: 523.va_a_22cf15d5e0
 
   # ECharts API Plugin
   - artifactId: echarts-api
@@ -292,7 +292,7 @@ plugins:
   # Matrix Authorization Strategy Plugin
   - artifactId: matrix-auth
     source:
-      version: 3.1.10
+      version: 3.2
 
   # Matrix Project Plugin
   - artifactId: matrix-project
@@ -394,6 +394,11 @@ plugins:
     source:
       version: 3.3.0
 
+  # Remote Jenkinsfile Provider
+  - artifactId: remote-file
+    source:
+      version: 1.23
+
   # Resource Disposer Plugin
   - artifactId: resource-disposer
     source:
@@ -407,7 +412,7 @@ plugins:
   # Script Security Plugin
   - artifactId: script-security
     source:
-      version: 1269.v639888f5e366
+      version: 1273.v66c1964f0dfd
 
   # SnakeYAML API Plugin
   - artifactId: snakeyaml-api
@@ -457,7 +462,7 @@ plugins:
   # Pipeline: API
   - artifactId: workflow-api
     source:
-      version: 1259.vb_47f14fffc8a_
+      version: 1261.va_2ff5204f17e
 
   # Pipeline: Basic Steps
   - artifactId: workflow-basic-steps
@@ -467,17 +472,17 @@ plugins:
   # Pipeline: Groovy
   - artifactId: workflow-cps
     source:
-      version: 3769.v8b_e595e4d40d
+      version: 3773.v505e0052522c
 
   # Pipeline: Nodes and Processes
   - artifactId: workflow-durable-task-step
     source:
-      version: 1284.v4fcd365b_75b_e
+      version: 1289.v4d3e7b_01546b_
 
   # Pipeline: Job
   - artifactId: workflow-job
     source:
-      version: 1326.ve643e00e9220
+      version: 1341.vd9fa_65f771dd
 
   # Pipeline: Multibranch
   - artifactId: workflow-multibranch

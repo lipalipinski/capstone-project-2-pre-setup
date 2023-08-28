@@ -106,3 +106,50 @@ jobs:
           }
         }
       }
+   - script: >
+      multibranchPipelineJob('Petclinic-PR') {
+        // dissable pipeline by defalut
+        configure {
+          it / disabled << 'true' // dissable pipeline by defalut
+        }
+        description('Job dissabled by default.\nEnable this job when configuration is finished. \n\n Configured in JCasC with JobDSL')
+        branchSources {
+          git {
+            id('petclinic-100') // IMPORTANT use a constant and unique identifier
+            remote('https://github.com/lipalipinski/spring-petclinic.git')
+            includes('*')
+          }
+        }
+        factory{
+          remoteJenkinsFileWorkflowBranchProjectFactory{
+            fallbackBranch("main")
+            localMarker("")
+            matchBranches(false)
+            remoteJenkinsFile("Jenkinsfile-PR")
+            remoteJenkinsFileSCM{
+              gitSCM{
+                userRemoteConfigs{
+                  userRemoteConfig{
+                    name("") //Custom Repository Name or ID
+                    url("https://github.com/lipalipinski/capstone-project-2-ci-cd.git") //URL for the repository
+                    refspec("") // Branch spec
+                    credentialsId("") // Credential ID. Leave blank if not required
+                  }
+                }
+                branches{
+                  branchSpec{
+                    name("refs/heads/main")
+                  }
+                }
+                browser{} // Leave blank for default Git Browser
+                gitTool("") //Leave blank for default git executable
+              }
+            }
+          }
+        }
+        triggers {
+          periodicFolderTrigger{
+            interval('5m')
+          }
+        }
+      }
