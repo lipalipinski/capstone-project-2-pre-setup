@@ -14,6 +14,11 @@ plugins:
     source:
       version: 4.5.14-208.v438351942757
 
+  # CloudBees AWS Credentials Plugin
+  - artifactId: aws-credentials
+    source:
+      version: 191.vcb_f183ce58b_9
+
   # Amazon Web Services SDK :: All
   - artifactId: aws-java-sdk
     source:
@@ -94,6 +99,11 @@ plugins:
     source:
       version: 1.12.529-406.vdeff15e5817d
 
+  # AWS Parameter Store Build Wrapper
+  - artifactId: aws-parameter-store
+    source:
+      version: 1.2.2
+
   # AWS Secrets Manager Credentials Provider
   - artifactId: aws-secrets-manager-credentials-provider
     source:
@@ -138,6 +148,11 @@ plugins:
   - artifactId: cloudbees-folder
     source:
       version: 6.848.ve3b_fd7839a_81
+
+  # Command Agent Launcher Plugin
+  - artifactId: command-launcher
+    source:
+      version: 107.v773860566e2e
 
   # commons-lang3 v3.x Jenkins API Plugin
   - artifactId: commons-lang3-api
@@ -258,6 +273,11 @@ plugins:
   - artifactId: jaxb
     source:
       version: 2.3.8-1
+
+  # Oracle Java SE Development Kit Installer Plugin
+  - artifactId: jdk-tool
+    source:
+      version: 73.vddf737284550
 
   # Java JSON Web Token (JJWT) Plugin
   - artifactId: jjwt-api
@@ -428,6 +448,11 @@ plugins:
   - artifactId: ssh-slaves
     source:
       version: 2.916.vd17b_43357ce4
+
+  # SSH server
+  - artifactId: sshd
+    source:
+      version: 3.312.v1c601b_c83b_0e
 
   # Structs Plugin
   - artifactId: structs
