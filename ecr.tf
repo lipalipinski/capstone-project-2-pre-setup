@@ -12,3 +12,17 @@ module "ecr" {
   repository_image_scan_on_push = true
   repository_image_tag_mutability = "MUTABLE"
 }
+
+module "ecr-url" {
+  source  = "terraform-aws-modules/ssm-parameter/aws"
+  version = "1.1.0"
+
+  name = "ecr_registry_url"
+  value = module.ecr.repository_url
+
+  description = "ECR repository URL for petclinic app image - jlipinski"
+
+  tags = {
+    Name = "ecr_registry_url"
+  }
+}
