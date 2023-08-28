@@ -18,6 +18,19 @@ jenkins:
       remoteFS: "/home/ubuntu/jenkins"
       retentionStrategy: "always"
   numExecutors: 0
+tool:
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  maven:
+    installations:
+    - name: "maven-3.9.2"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.9.2"
 jobs:
   - script: >
       pipelineJob('Petclinic-Provision-Up') {
