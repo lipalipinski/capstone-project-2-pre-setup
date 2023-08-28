@@ -106,7 +106,7 @@ jobs:
           }
         }
       }
-   - script: >
+  - script: >
       multibranchPipelineJob('Petclinic-PR') {
         // dissable pipeline by defalut
         configure {
