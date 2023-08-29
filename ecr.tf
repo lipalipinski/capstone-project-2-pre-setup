@@ -17,7 +17,7 @@ module "ecr-url" {
   source  = "terraform-aws-modules/ssm-parameter/aws"
   version = "1.1.0"
 
-  name = "ecr_registry_url"
+  name = "/jlipinski/ecr_registry_url"
   value = module.ecr.repository_url
 
   description = "ECR repository URL for petclinic app image - jlipinski"
