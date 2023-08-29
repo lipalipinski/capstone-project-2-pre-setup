@@ -42,6 +42,12 @@ resource "aws_iam_role_policy_attachment" "jenkins-secrets-policy-attach" {
   policy_arn = aws_iam_policy.jenkins_secrets_manager.arn
 }
 
+# needed for jenkins access to parameter store
+resource "aws_iam_role_policy_attachment" "jenkins-controller-ssm-read" {
+  role       = aws_iam_role.jenkins-controller.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+}
+
 # ====== jenkins worker ======
 
 resource "aws_iam_instance_profile" "jenkins-worker" {
@@ -84,6 +90,11 @@ resource "aws_iam_role_policy_attachment" "jenkins-worker-ecr-token" {
 resource "aws_iam_role_policy_attachment" "jenkins-worker-tf-backend" {
   role       = aws_iam_role.jenkins-worker.name
   policy_arn = aws_iam_policy.tf_backend_access.arn
+}
+
+resource "aws_iam_role_policy_attachment" "jenkins-worker-create-policy" {
+  role       = aws_iam_role.jenkins-worker.name
+  policy_arn = aws_iam_policy.create_iam_role.arn
 }
 
 resource "aws_iam_role_policy_attachment" "jenkins-worker-ec2-full" {
@@ -180,5 +191,47 @@ resource "aws_iam_policy" "get_ecr_token" {
 
   tags = {
     Name = "get_ecr_token"
+  }
+}
+
+resource "aws_iam_policy" "create_iam_role" {
+  name        = "create_iam_role"
+  description = "Create IAM role"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "CreateIAMRole",
+        "Effect" : "Allow",
+        "Action" : [
+          "iam:AddRoleToInstanceProfile",
+          "iam:AttachRolePolicy",
+          "iam:CreatePolicy",
+          "iam:CreateRole",
+          "iam:CreateInstanceProfile",
+          "iam:DeleteRole",
+          "iam:DeleteInstanceProfile",
+          "iam:DetachRolePolicy",
+          "iam:GetInstanceProfile",
+          "iam:GetPolicy",
+          "iam:GetPolicyVersion",
+          "iam:GetRole",
+          "iam:ListAttachedRolePolicies",
+          "iam:ListInstanceProfilesForRole",
+          "iam:ListPolicies",
+          "iam:ListRolePolicies",
+          "iam:PassRole",
+          "iam:RemoveRoleFromInstanceProfile",
+          "iam:TagInstanceProfile",
+          "iam:TagPolicy",
+          "iam:TagRole",
+         ],
+        "Resource" : "*"
+      },
+    ]
+  })
+
+  tags = {
+    Name = "create_iam_role"
   }
 }
