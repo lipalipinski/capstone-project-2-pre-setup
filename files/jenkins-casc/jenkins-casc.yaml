@@ -169,6 +169,13 @@ jobs:
   - script: >
       pipelineJob('Petclinic-Deploy') {
         description('Configured in JCasC with JobDSL')
+        parameters {
+          string {
+            name("APP_TAG")
+            description("Provide a tag of an app image to be deployed")
+            trim(true)
+          }
+        }
         definition {
           cpsScm {
             lightweight(false)
