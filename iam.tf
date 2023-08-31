@@ -102,6 +102,11 @@ resource "aws_iam_role_policy_attachment" "jenkins-worker-kms-read" {
   policy_arn = aws_iam_policy.kms_read.arn
 }
 
+resource "aws_iam_role_policy_attachment" "jenkins-worker-secretsmanager-read-write" {
+  role       = aws_iam_role.jenkins-worker.name
+  policy_arn = aws_iam_policy.secrets_manager_read_write.arn
+}
+
 resource "aws_iam_role_policy_attachment" "jenkins-worker-ec2-full" {
   role       = aws_iam_role.jenkins-worker.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
@@ -148,6 +153,23 @@ resource "aws_iam_policy" "jenkins_secrets_manager" {
   tags = {
     Name = "jenkins_secrets_manager"
   }
+}
+
+resource "aws_iam_policy" "secrets_manager_read_write" {
+  name        = "secrets_manager_read_write"
+  description = "secrets manager read write"
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+              "secretsmanager:*",
+            ],
+            "Resource": "*"
+        }
+    ]
+  }) 
 }
 
 resource "aws_iam_policy" "tf_backend_access" {

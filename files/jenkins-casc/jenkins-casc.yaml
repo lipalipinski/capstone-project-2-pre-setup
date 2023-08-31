@@ -64,6 +64,9 @@ jobs:
   - script: >
       pipelineJob('Petclinic-Provision-Down') {
         description('Configured in JCasC with JobDSL')
+        parameters {
+          booleanParam('DESTROY_DB', false, 'Check out to permanently delete database resource')
+        }
         definition {
           cpsScm {
             lightweight(false)
