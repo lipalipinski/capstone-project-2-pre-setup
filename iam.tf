@@ -172,6 +172,24 @@ resource "aws_iam_policy" "secrets_manager_read_write" {
   }) 
 }
 
+resource "aws_iam_policy" "secrets-manager-get-secret" {
+  name        = "secrets-manager-get-secret"
+  description = "get secret from secrets manager"
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+              "secretsmanager:GetSecretValue",
+              "kms:Decrypt",
+            ],
+            "Resource": "*"
+        }
+    ]
+  }) 
+}
+
 resource "aws_iam_policy" "tf_backend_access" {
   name        = "tf_backend_access"
   description = "Policies to use S3 and DynamoDB terraform backend"
