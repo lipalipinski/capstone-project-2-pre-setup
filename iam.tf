@@ -97,6 +97,11 @@ resource "aws_iam_role_policy_attachment" "jenkins-worker-create-policy" {
   policy_arn = aws_iam_policy.create_iam_role.arn
 }
 
+resource "aws_iam_role_policy_attachment" "jenkins-worker-kms-read" {
+  role       = aws_iam_role.jenkins-worker.name
+  policy_arn = aws_iam_policy.kms_read.arn
+}
+
 resource "aws_iam_role_policy_attachment" "jenkins-worker-ec2-full" {
   role       = aws_iam_role.jenkins-worker.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
@@ -105,6 +110,11 @@ resource "aws_iam_role_policy_attachment" "jenkins-worker-ec2-full" {
 resource "aws_iam_role_policy_attachment" "jenkins-worker-ssm-read" {
   role       = aws_iam_role.jenkins-worker.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "jenkins-rds-full" {
+  role       = aws_iam_role.jenkins-worker.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonRDSFullAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "jenkins-worker-vpc-full" {
@@ -158,7 +168,7 @@ resource "aws_iam_policy" "tf_backend_access" {
           "s3:PutObject",
           "s3:DeleteObject"
         ],
-        "Resource" : "arn:aws:s3:::${var.tf_backend_s3}/${var.tf_app_backend_s3_path}/*"
+        "Resource" : "arn:aws:s3:::${var.tf_backend_s3}/*/*"
       },
       {
         "Effect" : "Allow",
@@ -225,7 +235,7 @@ resource "aws_iam_policy" "create_iam_role" {
           "iam:TagInstanceProfile",
           "iam:TagPolicy",
           "iam:TagRole",
-         ],
+        ],
         "Resource" : "*"
       },
     ]
@@ -234,4 +244,23 @@ resource "aws_iam_policy" "create_iam_role" {
   tags = {
     Name = "create_iam_role"
   }
+}
+
+resource "aws_iam_policy" "kms_read" {
+  name        = "kms_read"
+  description = "get kms keys"
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:Describe*",
+                "kms:Get*",
+                "kms:List*",
+            ],
+            "Resource": "*"
+        }
+    ]
+  })
 }
