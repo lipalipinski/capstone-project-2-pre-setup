@@ -133,9 +133,11 @@ jobs:
         }
         description('Job dissabled by default.\nEnable this job when configuration is finished. \n\n Configured in JCasC with JobDSL')
         branchSources {
-          github {
-            credentialsId('jenkins-petclinic-token-user')
-            repositoryUrl('https://github.com/lipalipinski/spring-petclinic.git')
+          branchSource{
+            github {
+              credentialsId('jenkins-petclinic-token-user')
+              repositoryUrl('https://github.com/lipalipinski/spring-petclinic.git')
+            }
           }
           """git {
             id('petclinic-100') // IMPORTANT use a constant and unique identifier
