@@ -50,6 +50,8 @@ module "jenkins-petclinic-token-user" {
 }
 
 module "jenkins-petclinic-token" {
+  # for Jenkins GitHub plugin
+  # to be set in jenkins-casc.yaml
   source  = "terraform-aws-modules/secrets-manager/aws"
   version = "1.1.1"
 
