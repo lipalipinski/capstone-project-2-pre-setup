@@ -144,11 +144,6 @@ jobs:
               }
             }
           }
-          """git {
-            id('petclinic-100') // IMPORTANT use a constant and unique identifier
-            remote('https://github.com/lipalipinski/spring-petclinic.git')
-            includes('*')
-          }"""
         }
         factory{
           remoteJenkinsFileWorkflowBranchProjectFactory{
