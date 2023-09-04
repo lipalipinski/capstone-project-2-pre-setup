@@ -136,6 +136,9 @@ jobs:
           branchSource{
             source{
               github {
+                // repoOwner('lipalipinski')
+                // repository('spring-petclinic.git')
+                configuredByUrl(true)
                 credentialsId('jenkins-petclinic-token-user')
                 repositoryUrl('https://github.com/lipalipinski/spring-petclinic.git')
               }
