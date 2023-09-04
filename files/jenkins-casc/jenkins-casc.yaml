@@ -141,6 +141,14 @@ jobs:
                 configuredByUrl(true)
                 credentialsId('jenkins-petclinic-token-user')
                 repositoryUrl('https://github.com/lipalipinski/spring-petclinic.git')
+                traits {
+
+                  // Discovers branches on the repository.
+                  gitHubBranchDiscovery {
+                  // Determines which branches are discovered.
+                  strategyId(1)
+                  }
+                }
               }
             }
           }
