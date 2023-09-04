@@ -404,6 +404,11 @@ plugins:
     source:
       version: 2.33
 
+  # Pipeline Utility Steps
+  - artifactId: pipeline-utility-steps
+    source:
+      version: 2.16.0
+
   # Plain Credentials Plugin
   - artifactId: plain-credentials
     source:
