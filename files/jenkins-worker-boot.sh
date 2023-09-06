@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export NEEDRESTART_MODE=a
+export DEBIAN_FRONTEND=noninteractive
+
 AWS_CLI_VER="2.13.9"
 DOCKER_VERSION_STRING="5:24.0.5-1~ubuntu.22.04~jammy"
 JENKINS_REMOTE_DIR="/home/ubuntu/jenkins"
@@ -25,9 +28,9 @@ apt-get install -y \
   unzip \
 
 # install AWS CLI 
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-$AWS_CLI_VER.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-./aws/install
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-$AWS_CLI_VER.zip" -o "awscliv2.zip" && \
+  unzip awscliv2.zip && \
+  ./aws/install
 
 # install JDK 17
 mkdir -p /etc/apt/keyrings

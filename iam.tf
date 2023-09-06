@@ -48,6 +48,12 @@ resource "aws_iam_role_policy_attachment" "jenkins-controller-ssm-read" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
 }
 
+# for jenkins ec2 plugin
+resource "aws_iam_role_policy_attachment" "jenkins-controller-ec2-plugin" {
+  role       = aws_iam_role.jenkins-controller.name
+  policy_arn = aws_iam_policy.jenkins-create-ec2.arn
+}
+
 # ====== jenkins worker ======
 
 resource "aws_iam_instance_profile" "jenkins-worker" {
@@ -159,35 +165,35 @@ resource "aws_iam_policy" "secrets_manager_read_write" {
   name        = "secrets_manager_read_write"
   description = "secrets manager read write"
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-              "secretsmanager:*",
-            ],
-            "Resource": "*"
-        }
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "secretsmanager:*",
+        ],
+        "Resource" : "*"
+      }
     ]
-  }) 
+  })
 }
 
 resource "aws_iam_policy" "secrets-manager-get-secret" {
   name        = "secrets-manager-get-secret"
   description = "get secret from secrets manager"
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-              "secretsmanager:GetSecretValue",
-              "kms:Decrypt",
-            ],
-            "Resource": "*"
-        }
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "secretsmanager:GetSecretValue",
+          "kms:Decrypt",
+        ],
+        "Resource" : "*"
+      }
     ]
-  }) 
+  })
 }
 
 resource "aws_iam_policy" "tf_backend_access" {
@@ -290,17 +296,55 @@ resource "aws_iam_policy" "kms_read" {
   name        = "kms_read"
   description = "get kms keys"
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "kms:Describe*",
-                "kms:Get*",
-                "kms:List*",
-            ],
-            "Resource": "*"
-        }
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "kms:Describe*",
+          "kms:Get*",
+          "kms:List*",
+        ],
+        "Resource" : "*"
+      }
     ]
+  })
+}
+
+resource "aws_iam_policy" "jenkins-create-ec2" {
+  name        = "jenkins-create-ec2"
+  description = "permiisions for jenkins ec2 plugin"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "Stmt1312295543082",
+        "Action" : [
+          "ec2:DescribeSpotInstanceRequests",
+          "ec2:CancelSpotInstanceRequests",
+          "ec2:GetConsoleOutput",
+          "ec2:RequestSpotInstances",
+          "ec2:RunInstances",
+          "ec2:StartInstances",
+          "ec2:StopInstances",
+          "ec2:TerminateInstances",
+          "ec2:CreateTags",
+          "ec2:DeleteTags",
+          "ec2:DescribeInstances",
+          "ec2:DescribeInstanceTypes",
+          "ec2:DescribeKeyPairs",
+          "ec2:DescribeRegions",
+          "ec2:DescribeImages",
+          "ec2:DescribeAvailabilityZones",
+          "ec2:DescribeSecurityGroups",
+          "ec2:DescribeSubnets",
+          "iam:ListInstanceProfilesForRole",
+          "iam:PassRole",
+          "ec2:GetPasswordData"
+        ],
+        "Effect" : "Allow",
+        "Resource" : "*"
+      }
+    ],
   })
 }

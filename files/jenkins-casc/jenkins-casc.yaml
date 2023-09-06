@@ -8,12 +8,25 @@ jenkins:
       launcher:
         ssh:
           credentialsId: "jenkins-worker-pk"
-          host: "jenkins-worker"
+          host: "jenkins-worker-1"
           port: 22
           sshHostKeyVerificationStrategy:
             manuallyTrustedKeyVerificationStrategy:
               requireInitialManualTrust: false
-      name: "ec2-worker"
+      name: "ec2-worker-1"
+      remoteFS: "/home/ubuntu/jenkins"
+      retentionStrategy: "always"
+  - permanent:
+      labelString: "ec2-worker ec2"
+      launcher:
+        ssh:
+          credentialsId: "jenkins-worker-pk"
+          host: "jenkins-worker-2"
+          port: 22
+          sshHostKeyVerificationStrategy:
+            manuallyTrustedKeyVerificationStrategy:
+              requireInitialManualTrust: false
+      name: "ec2-worker-2"
       remoteFS: "/home/ubuntu/jenkins"
       retentionStrategy: "always"
   numExecutors: 0
@@ -152,7 +165,7 @@ jobs:
                   // Discovers pull requests where the origin repository is the same as the target repository.
                   gitHubPullRequestDiscovery {
                     // Determines how pull requests are discovered: Merging the pull request with the current target branch revision Discover each pull request once with the discovered revision corresponding to the result of merging with the current revision of the target branch.
-                    strategyId(1)
+                    strategyId(2)
                   }
                 }
               }

@@ -31,7 +31,8 @@ echo 'export JENKINS_WORKER_PK_NAME="${var.jenkins-worker-pk-name}"' >> /etc/pro
 source /etc/profile.d/vars.sh
 
 # add jenkins worker to /etc/hosts
-echo "${module.jenkins-worker.private_ip} jenkins-worker" >> /etc/hosts
+echo "${module.jenkins-worker[0].private_ip} jenkins-worker-1" >> /etc/hosts
+echo "${module.jenkins-worker[1].private_ip} jenkins-worker-2" >> /etc/hosts
 
 # bootstrap script
 ${file("files/jenkins-controller-boot.sh")}
@@ -58,12 +59,13 @@ module "jenkins-worker" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.2.1"
 
-  name                 = "jenkins-worker"
+  count = 2
+  name                 = "jenkins-worker-${count.index + 1}"
   iam_instance_profile = aws_iam_instance_profile.jenkins-worker.name
   key_name             = module.jenkins-worker-kp.key_pair_name
 
   instance_type = "t3.medium"
-  ami           = var.jenkins-ami
+  ami           = "ami-02e3aa4d33a7f03af"
   monitoring    = true
 
   subnet_id              = module.vpc.private_subnets[0]
@@ -78,13 +80,9 @@ module "jenkins-worker" {
   ]
 
   user_data_replace_on_change = true
-  user_data                   = <<EOF
-#!/bin/bash
-${file("files/jenkins-worker-boot.sh")}
-EOF
 
   tags = {
-    Name  = "jenkins_worker_1"
+    Name  = "jenkins-worker-${count.index + 1}"
     Group = "jenkins_worker"
   }
 }
@@ -94,7 +92,7 @@ module "jenkins-worker-kp" {
   version = "2.0.2"
 
   key_name   = "jenkins-worker-kp"
-  public_key = file("files/ssh/jenkins-worker-kp.pub")
+  public_key = file("files/secrets/jenkins-worker-kp.pub")
 
   tags = {
     Name = "jenkins-worker-kp"
@@ -106,7 +104,7 @@ module "app-server-kp" {
   version = "2.0.2"
 
   key_name   = "app-server-kp"
-  public_key = file("files/ssh/app-server-kp.pub")
+  public_key = file("files/secrets/app-server-kp.pub")
 
   tags = {
     Name = "app-server-kp"

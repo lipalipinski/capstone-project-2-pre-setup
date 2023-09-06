@@ -62,7 +62,7 @@ module "jenkins-petclinic-token" {
   recovery_window_in_days = 0
 
   tags = {
-    Name                           = "jenkins-petclinic-token"
-    "jenkins:credentials:type"     = "string"
+    Name                       = "jenkins-petclinic-token"
+    "jenkins:credentials:type" = "string"
   }
 }
