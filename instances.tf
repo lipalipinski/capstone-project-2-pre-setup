@@ -6,7 +6,7 @@ module "jenkins-controller" {
   iam_instance_profile = aws_iam_instance_profile.jenkins-controller.name
 
   instance_type = "t3.medium"
-  ami           = var.jenkins-ami
+  ami           = reverse(data.aws_ami_ids.jenkins-controller.ids)[0]
   monitoring    = true
 
   subnet_id              = module.vpc.public_subnets[0]
@@ -65,7 +65,7 @@ module "jenkins-worker" {
   key_name             = module.jenkins-worker-kp.key_pair_name
 
   instance_type = "t3.medium"
-  ami           = "ami-02e3aa4d33a7f03af"
+  ami           = reverse(data.aws_ami_ids.jenkins-worker.ids)[0]
   monitoring    = true
 
   subnet_id              = module.vpc.private_subnets[0]

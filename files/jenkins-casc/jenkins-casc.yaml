@@ -159,7 +159,7 @@ jobs:
                   // Discovers branches on the repository.
                   gitHubBranchDiscovery {
                     // Determines which branches are discovered.
-                    strategyId(1)
+                    strategyId(3)
                   }
                   
                   // Discovers pull requests where the origin repository is the same as the target repository.
