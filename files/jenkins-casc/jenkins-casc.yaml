@@ -142,7 +142,7 @@ jobs:
       multibranchPipelineJob('Petclinic-PR') {
         // dissable pipeline by defalut
         configure {
-          it / disabled << 'false' // dissable pipeline by defalut
+          // it / disabled << 'true' // dissable pipeline by defalut
         }
         description('Configured in JCasC with JobDSL')
         branchSources {
@@ -158,6 +158,7 @@ jobs:
                 traits {
 
                   // Discovers branches on the repository.
+                  gitBranchDiscovery()
                   gitHubBranchDiscovery {
                     // Determines which branches are discovered.
                     strategyId(3)
