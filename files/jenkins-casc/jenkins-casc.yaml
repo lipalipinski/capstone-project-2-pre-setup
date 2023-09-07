@@ -196,8 +196,12 @@ jobs:
           }
         }
         triggers {
+          githubPush()
           periodicFolderTrigger{
             interval('5m')
+          }
+          cron{
+            '/12 * * * *'
           }
         }
       }
