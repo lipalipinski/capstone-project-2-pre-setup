@@ -143,6 +143,7 @@ jobs:
         description('Configured in JCasC with JobDSL')
         branchSources {
           branchSource{
+            buildStrategies {}
             source{
               github {
                 repoOwner('lipalipinski')
