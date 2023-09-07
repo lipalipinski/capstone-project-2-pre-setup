@@ -144,7 +144,7 @@ jobs:
         configure {
           // it / disabled << 'true' // dissable pipeline by defalut
         }
-        description('Configured in JCasC with JobDSL')
+        description('Go to Configure >> Apply and Save to enable Job \n\nConfigured in JCasC with JobDSL')
         branchSources {
           branchSource{
             buildStrategies {}
