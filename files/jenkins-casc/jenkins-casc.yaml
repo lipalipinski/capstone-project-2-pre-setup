@@ -169,7 +169,7 @@ jobs:
             }
           }
           github{
-            buildOriginBranch(boolean buildOriginBranch = true)
+            buildOriginBranch()
           }
         }
         factory{
