@@ -173,9 +173,14 @@ jobs:
                   cloneOption {
                     extension {
                       // Perform shallow clone, so that git will not download the history of the project, saving time and disk space when you just want to access the latest version of a repository.
-                      //shallow(boolean value)
+                      shallow(false)
                       // Deselect this to perform a clone without tags, saving time and disk space when you just want to access what is specified by the refspec.
                       noTags(false)
+                      // Specify a folder containing a repository that will be used by Git as a reference during clone operations.
+                      reference('.')
+                      // Specify a timeout (in minutes) for clone and fetch operations.
+                      timeout(5)
+                      }
                     }
                   }
                 }
