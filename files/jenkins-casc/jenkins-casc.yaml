@@ -201,7 +201,7 @@ jobs:
             interval('5m')
           }
           cron{
-            spec('/12 * * * *')
+            spec('*/5 * * * *')
           }
         }
       }
