@@ -153,6 +153,7 @@ jobs:
                 traits {
 
                   // Discovers branches on the repository.
+                  gitBranchDiscovery()
                   gitHubBranchDiscovery {
                     // Determines which branches are discovered.
                     strategyId(3)
@@ -196,7 +197,6 @@ jobs:
           }
         }
         triggers {
-          githubPush()
           periodicFolderTrigger{
             interval('5m')
           }
