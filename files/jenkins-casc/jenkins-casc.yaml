@@ -34,6 +34,8 @@ unclassified:
   gitHubPluginConfig:
     configs:
     - credentialsId: "jenkins-petclinic-token"
+  shell:
+    shell: "/bin/bash"
 tool:
   git:
     installations:
