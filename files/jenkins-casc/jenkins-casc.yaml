@@ -140,11 +140,7 @@ jobs:
       }
   - script: >
       multibranchPipelineJob('Petclinic-PR') {
-        // dissable pipeline by defalut
-        configure {
-          it / disabled << 'true' // dissable pipeline by defalut
-        }
-        description('Job dissabled by default.\nEnable this job when configuration is finished. \n\n Configured in JCasC with JobDSL')
+        description('Configured in JCasC with JobDSL')
         branchSources {
           branchSource{
             source{
