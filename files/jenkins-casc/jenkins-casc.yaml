@@ -169,6 +169,11 @@ jobs:
                     // Determines how pull requests are discovered: Merging the pull request with the current target branch revision Discover each pull request once with the discovered revision corresponding to the result of merging with the current revision of the target branch.
                     strategyId(2)
                   }
+
+                  // Discovers tags on the repository.
+                  gitHubTagDiscovery()
+                  // Discovers tags on the repository.
+                  gitTagDiscovery()
                 }
               }
             }
