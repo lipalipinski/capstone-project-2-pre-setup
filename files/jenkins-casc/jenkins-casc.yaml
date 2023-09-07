@@ -170,10 +170,14 @@ jobs:
                     strategyId(2)
                   }
 
-                  // Discovers tags on the repository.
-                  gitHubTagDiscovery()
-                  // Discovers tags on the repository.
-                  gitTagDiscovery()
+                  cloneOption {
+                    extension {
+                      // Perform shallow clone, so that git will not download the history of the project, saving time and disk space when you just want to access the latest version of a repository.
+                      //shallow(boolean value)
+                      // Deselect this to perform a clone without tags, saving time and disk space when you just want to access what is specified by the refspec.
+                      noTags(false)
+                    }
+                  }
                 }
               }
             }
