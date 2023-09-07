@@ -180,7 +180,6 @@ jobs:
                       reference('.')
                       // Specify a timeout (in minutes) for clone and fetch operations.
                       timeout(5)
-                      }
                     }
                   }
                 }
