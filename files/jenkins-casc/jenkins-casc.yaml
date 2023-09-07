@@ -153,7 +153,6 @@ jobs:
                 traits {
 
                   // Discovers branches on the repository.
-                  gitBranchDiscovery()
                   gitHubBranchDiscovery {
                     // Determines which branches are discovered.
                     strategyId(3)
@@ -167,10 +166,6 @@ jobs:
                 }
               }
             }
-          }
-          github{
-            buildOriginBranch()
-            id('101')
           }
         }
         factory{
