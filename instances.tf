@@ -80,6 +80,12 @@ module "jenkins-worker" {
   ]
 
   user_data_replace_on_change = true
+  user_data                   = <<EOF
+#!/bin/bash
+
+# bootstrap script
+${file("files/jenkins-worker-boot.sh")}
+EOF
 
   tags = {
     Name  = "jenkins-worker-${count.index + 1}"

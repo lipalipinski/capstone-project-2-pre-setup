@@ -3,6 +3,8 @@
 JENKINS_VER="=2.414.*"
 SETUP_REPO_DIR="/root/pre-setup"
 
+apt-get update -y && apt-get upgrade -y
+
 # clone pre-setup repo
 git clone https://github.com/lipalipinski/capstone-project-2-pre-setup.git $SETUP_REPO_DIR
 
