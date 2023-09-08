@@ -84,6 +84,7 @@ jobs:
         description('Configured in JCasC with JobDSL')
         parameters {
           booleanParam('DESTROY_DB', false, 'Check out to permanently delete database resource')
+          booleanParam('STOP_DB', true, 'Check out to stop RDS instance')
         }
         definition {
           cpsScm {

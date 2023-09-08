@@ -133,6 +133,54 @@ resource "aws_iam_role_policy_attachment" "jenkins-worker-vpc-full" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonVPCFullAccess"
 }
 
+# ====== app server ======
+resource "aws_iam_instance_profile" "app-server" {
+  name = "app-server"
+  role = aws_iam_role.app-server.name
+
+  tags = {
+    Name = "app-server"
+  }
+}
+
+resource "aws_iam_role" "app-server" {
+  name = "app-server"
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "ec2.amazonaws.com"
+        },
+        "Action" : "sts:AssumeRole"
+      }
+    ]
+  })
+
+  # set to meet GD policy
+  permissions_boundary = var.gd-boundry-policy
+
+  tags = {
+    Name = "app-server"
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "app-runner-ecr" {
+  role       = aws_iam_role.app-server.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSAppRunnerServicePolicyForECRAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "app-server-ecr-token" {
+  role       = aws_iam_role.app-server.name
+  policy_arn = aws_iam_policy.get_ecr_token.arn
+}
+
+resource "aws_iam_role_policy_attachment" "secrets-manager-get-secret" {
+  role       = aws_iam_role.app-server.name
+  policy_arn = aws_iam_policy.secrets-manager-get-secret.arn
+}
+
 # ====== policies ======
 
 resource "aws_iam_policy" "jenkins_secrets_manager" {
