@@ -59,7 +59,7 @@ resource "aws_security_group" "jenkins-worker-sg" {
 resource "aws_security_group" "app_lb_sg" {
   name        = "app_lb_sg"
   description = "SG for Petclinic Load Balancer"
-  vpc_id      = data.aws_vpcs.app-vpc.ids[0]
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     description = "Allow 80 from anywhere"
