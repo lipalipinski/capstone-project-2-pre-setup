@@ -38,12 +38,8 @@ variable "gd-boundry-policy" {
   default = "arn:aws:iam::113304117666:policy/DefaultBoundaryPolicy"
 }
 
-variable "jenkins-ami" {
-  type    = string
-  default = "ami-04e601abe3e1a910f"
-}
-
 variable "jenkins-home" {
+  # dir for jenkins instalation
   type    = string
   default = "/home/jenkins"
 }

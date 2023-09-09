@@ -1,3 +1,10 @@
+/*
+remember to prepare keys maually in files/secrets
+secrets tagged with jenkins:credentials:type will be retrieved by 
+Jenkins Secrets Manager Credentials Proovider Plugin
+https://plugins.jenkins.io/aws-secrets-manager-credentials-provider/
+*/
+
 module "jenkins-worker-private-key" {
   source  = "terraform-aws-modules/secrets-manager/aws"
   version = "1.1.1"
@@ -32,6 +39,7 @@ module "app-server-private-key" {
   }
 }
 
+# github token for repo access and webhooks
 module "jenkins-petclinic-token-user" {
   source  = "terraform-aws-modules/secrets-manager/aws"
   version = "1.1.1"
@@ -45,6 +53,7 @@ module "jenkins-petclinic-token-user" {
   tags = {
     Name                           = "jenkins-petclinic-token-user"
     "jenkins:credentials:type"     = "usernamePassword"
+    # user to bind in Jenkins Credentials
     "jenkins:credentials:username" = "lipalipinski"
   }
 }

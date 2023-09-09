@@ -19,10 +19,6 @@ module "vpc" {
   public_subnet_tags = {
     Tier = "public"
   }
-
-  tags = {
-    # Name = "jlipinski-petclinic"
-  }
 }
 
 # get all AZ's in region

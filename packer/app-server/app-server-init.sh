@@ -39,7 +39,7 @@ unzip awscliv2.zip
 ./aws/install
 
 ####
-echo "uninstall any old docker docker"
+echo "uninstall any old docker"
 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; 
   do sudo apt-get remove $pkg; 
 done;
