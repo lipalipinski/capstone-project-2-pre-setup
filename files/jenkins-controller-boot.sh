@@ -1,6 +1,7 @@
 #!/bin/bash
 
 JENKINS_VER="=2.414.*"
+JENKINS_PORT=80
 SETUP_REPO_DIR="/root/pre-setup"
 
 apt-get update -y && apt-get upgrade -y
@@ -8,13 +9,12 @@ apt-get update -y && apt-get upgrade -y
 # clone pre-setup repo
 git clone https://github.com/lipalipinski/capstone-project-2-pre-setup.git $SETUP_REPO_DIR
 
-# get jenkins worker ssh private key
+# get jenkins worker ssh private key 
 aws secretsmanager get-secret-value \
   --output text \
   --query "SecretString" \
   --secret-id $JENKINS_WORKER_PK_NAME > /root/.ssh/$JENKINS_WORKER_PK_NAME && \
-  cp /root/.ssh/$JENKINS_WORKER_PK_NAME /home/ubuntu/.ssh/ && \
-  chown ubuntu:ubuntu /home/ubuntu/.ssh/$JENKINS_WORKER_PK_NAME 
+  chmod 400 /root/.ssh/$JENKINS_WORKER_PK_NAME
 
 # install Jenkins
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | tee \
@@ -34,7 +34,7 @@ mkdir /etc/systemd/system/jenkins.service.d/
 cat << EOF > /etc/systemd/system/jenkins.service.d/override.conf
 [Service]
 Environment="JENKINS_HOME=$JENKINS_HOME"
-Environment="JENKINS_PORT=80"
+Environment="JENKINS_PORT=$JENKINS_PORT"
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 EOF
 systemctl daemon-reload
