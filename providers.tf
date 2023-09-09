@@ -1,3 +1,5 @@
+# remember to set backend configuration
+
 terraform {
   required_providers {
     aws = {

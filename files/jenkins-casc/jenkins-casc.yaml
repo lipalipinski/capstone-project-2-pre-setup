@@ -152,7 +152,7 @@ jobs:
         }
       }
   - script: >
-      multibranchPipelineJob('Petclinic CI') {
+      multibranchPipelineJob('Petclinic-CI') {
         description('''
         Go to Configure >> Apply and Save to enable Job \n
         Continous Integration pipeline triggered by GitHub webhook.
