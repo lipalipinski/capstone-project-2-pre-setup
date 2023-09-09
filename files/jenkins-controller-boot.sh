@@ -13,7 +13,6 @@ aws secretsmanager get-secret-value \
   --output text \
   --query "SecretString" \
   --secret-id $JENKINS_WORKER_PK_NAME > /root/.ssh/$JENKINS_WORKER_PK_NAME && \
-# python3 $SETUP_REPO_DIR/files/get_secret.py $JENKINS_WORKER_PK_NAME && \
   cp /root/.ssh/$JENKINS_WORKER_PK_NAME /home/ubuntu/.ssh/ && \
   chown ubuntu:ubuntu /home/ubuntu/.ssh/$JENKINS_WORKER_PK_NAME 
 
