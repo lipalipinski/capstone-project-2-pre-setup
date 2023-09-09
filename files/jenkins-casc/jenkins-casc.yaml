@@ -52,7 +52,8 @@ tool:
 jobs:
   - script: >
       pipelineJob('Petclinic-Provision-Up') {
-        description('''Provisions an RDS DB instance, ALB and an EC2 instance for a Petclinic application.
+        description('''
+        Provisions an RDS DB instance, ALB and an EC2 instance for a Petclinic application.
         If the RDS already exists, but is not available (i.e. stopped) it tries to start it 
         and wait for it to become available. After provisioning an application EC2 instance it runs Apache 
         container and exposes it on :8080 to tests a connection and validate server configuration. 
