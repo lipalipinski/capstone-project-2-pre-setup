@@ -163,7 +163,7 @@ jobs:
         Tests app on push, builds a container and stores container image in ECR.
         Image tag is short commit hash, or app version (when building a commit to main branch)
         Validates app version on pull request. Tags a commit on main branch with application version.
-        \nConfigured in JCasC with JobDSL')
+        \nConfigured in JCasC with JobDSL''')
         branchSources {
           branchSource{
             buildStrategies {}
@@ -246,7 +246,13 @@ jobs:
       }
   - script: >
       pipelineJob('Petclinic-Deploy') {
-        description('Configured in JCasC with JobDSL')
+        description('''
+        Deploy an application container with a given tag.
+        Takes a server IP from terraform output.
+        Takes SSH key from credentials (provided with Secrets Manager plugin)
+        Takes ECR_REGISTRY_URL from AWS Parameter Store.
+        Tests the application on ALB address.
+        \nConfigured in JCasC with JobDSL')
         parameters {
           string {
             name("APP_TAG")
