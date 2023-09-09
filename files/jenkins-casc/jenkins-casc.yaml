@@ -87,7 +87,7 @@ jobs:
   - script: >
       pipelineJob('Petclinic-Provision-Down') {
         description('''
-        Destroys application ALB and EC2. Optionally it could stop and/or destrooy application DB.
+        Destroys application ALB and EC2. Optionally it could stop and/or destroy application DB.
         After stopping a DB waits for its state to become "stopped".
         \nConfigured in JCasC with JobDSL''')
         parameters {
@@ -122,7 +122,9 @@ jobs:
       }
   - script: >
       pipelineJob('Petclinic-Provision-Plan') {
-        description('Configured in JCasC with JobDSL')
+        description('''
+        Allows to verify execution plans before provisioning application infrastructure
+        Configured in JCasC with JobDSL''')
         definition {
           cpsScm {
             lightweight(false)
@@ -155,7 +157,13 @@ jobs:
         configure {
           // it / disabled << 'true' // dissable pipeline by defalut
         }
-        description('Go to Configure >> Apply and Save to enable Job \n\nConfigured in JCasC with JobDSL')
+        description('''
+        Go to Configure >> Apply and Save to enable Job \n
+        Continous Integration pipeline triggered by GitHub webhook.
+        Tests app on push, builds a container and stores container image in ECR.
+        Image tag is short commit hash, or app version (when building a commit to main branch)
+        Validates app version on pull request. Tags a commit on main branch with application version.
+        \nConfigured in JCasC with JobDSL')
         branchSources {
           branchSource{
             buildStrategies {}
