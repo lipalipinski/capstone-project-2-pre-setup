@@ -9,7 +9,11 @@ apt-get update -y && apt-get upgrade -y
 git clone https://github.com/lipalipinski/capstone-project-2-pre-setup.git $SETUP_REPO_DIR
 
 # get jenkins worker ssh private key
-python3 $SETUP_REPO_DIR/files/get_secret.py $JENKINS_WORKER_PK_NAME && \
+aws secretsmanager get-secret-value \
+  --output text \
+  --query "SecretString" \
+  --secret-id $JENKINS_WORKER_PK_NAME > /root/.ssh/$JENKINS_WORKER_PK_NAME && \
+# python3 $SETUP_REPO_DIR/files/get_secret.py $JENKINS_WORKER_PK_NAME && \
   cp /root/.ssh/$JENKINS_WORKER_PK_NAME /home/ubuntu/.ssh/ && \
   chown ubuntu:ubuntu /home/ubuntu/.ssh/$JENKINS_WORKER_PK_NAME 
 
@@ -22,7 +26,7 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
 apt-get update -y
 apt-get install -y jenkins$JENKINS_VER
 
-# jenkins setup port and HOME
+# jenkins setup ( serving port and user and home dir)
 mkdir $JENKINS_HOME
 cp -R /var/lib/jenkins/* $JENKINS_HOME/
 chown -R jenkins:jenkins $JENKINS_HOME
