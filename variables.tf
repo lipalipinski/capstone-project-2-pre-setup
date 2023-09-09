@@ -48,3 +48,8 @@ variable "jenkins-worker-pk-name" {
   type    = string
   default = "jenkins-worker-pk"
 }
+
+variable "gh-token" {
+  type = string
+  default = "files/secrets/gh-token"
+}

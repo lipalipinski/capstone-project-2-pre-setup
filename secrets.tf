@@ -65,7 +65,7 @@ module "jenkins-petclinic-token" {
   version = "1.1.1"
 
   name          = "jenkins-petclinic-token"
-  secret_string = file("files/secrets/gh-token")
+  secret_string = file(var.gh-token)
 
   # setting to 0 enables instant delete
   recovery_window_in_days = 0
