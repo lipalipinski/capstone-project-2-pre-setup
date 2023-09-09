@@ -252,7 +252,7 @@ jobs:
         Takes SSH key from credentials (provided with Secrets Manager plugin)
         Takes ECR_REGISTRY_URL from AWS Parameter Store.
         Tests the application on ALB address.
-        \nConfigured in JCasC with JobDSL')
+        \nConfigured in JCasC with JobDSL''')
         parameters {
           string {
             name("APP_TAG")
