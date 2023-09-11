@@ -3,6 +3,7 @@ Whole project consists of three repositories:
 - Pre-setup (this repo)
 - [Continous Integration repository](https://github.com/lipalipinski/capstone-project-2-ci-cd)
 - [Petclinic application repository](https://github.com/lipalipinski/spring-petclinic)
+
 # Pre-setup Repository
 
 This repo contains configuration-as-code for a Petclinic app CI/CD solution. 
@@ -17,10 +18,10 @@ It uses Terraform for provisioning infrastructure in AWS cloud. Before the first
 Application build and deployment, as well as provisioning app server, ALB and database could be done from Jenkins with jobs configured in [CICD Repo](https://github.com/lipalipinski/capstone-project-2-ci-cd).
 
 ### Full application deployment
-![AWS resources schema](petclinic-aws.svg)
+![AWS resources schema](images/petclinic-aws.svg)
 
 ### Resources provisioned with this repo
-![AWS resources schema](petclinic-pre-setup.svg)
+![AWS resources schema](images/petclinic-pre-setup.svg)
 
 ## Security Groups
 
